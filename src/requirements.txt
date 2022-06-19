@@ -3,3 +3,9 @@ isort~=5.0
 kedro==0.18.1
 kedro-telemetry~=0.2.0
 nbstripout~=0.4
+pandas~=1.4.2
+pyarrow~=8.0.0
+gdown~=4.4.0
+numpy~=1.22.3
+scikit_learn~=1.1.1
+kedro-mlflow~=0.11

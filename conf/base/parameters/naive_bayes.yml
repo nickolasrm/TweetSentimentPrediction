@@ -1,0 +1,7 @@
+train_pct: 0.8
+
+count_vectorizer:
+  stop_words: english
+
+naive_bayes:
+  alpha: 1.0
