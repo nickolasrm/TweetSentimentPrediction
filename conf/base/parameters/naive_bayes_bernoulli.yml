@@ -1,0 +1,5 @@
+hashing_vectorizer:
+  stop_words: english
+
+naive_bayes_bernoulli:
+  alpha: 1.0

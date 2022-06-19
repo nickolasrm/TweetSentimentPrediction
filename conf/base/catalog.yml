@@ -47,8 +47,16 @@ naive_bayes_prediction:
   filepath: data/07_model_output/naive_bayes_prediction.parquet
   type: pandas.ParquetDataSet
 
-naive_bayes_report:
+mlflow_report:
   type: kedro_mlflow.io.metrics.MlflowMetricsDataSet
+
+naive_bayes_bernoulli_model:
+  filepath: data/06_models/naive_bayes_bernoulli_model.pickle
+  type: pickle.PickleDataSet
+
+naive_bayes_bernoulli_prediction:
+  filepath: data/07_model_output/naive_bayes_bernoulli_prediction.parquet
+  type: pandas.ParquetDataSet
 
 x_custom:
   filepath: data/05_model_input/x_custom.csv
