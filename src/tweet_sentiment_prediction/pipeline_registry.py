@@ -8,6 +8,9 @@ from tweet_sentiment_prediction.pipelines.data_engineering import (
     pipeline as data_engineering)
 from tweet_sentiment_prediction.pipelines.naive_bayes import (pipeline as
                                                               naive_bayes)
+from tweet_sentiment_prediction.pipelines.naive_bayes_bernoulli import (
+    pipeline as naive_bayes_bernoulli
+)
 
 
 def register_pipelines() -> Dict[str, Pipeline]:
@@ -16,7 +19,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
     Returns:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
-    pipes = {'naive-bayes': naive_bayes.create_pipeline()}
+    pipes = {'naive-bayes': naive_bayes.create_pipeline(),
+             'naive-bayes-bernoulli': naive_bayes_bernoulli.create_pipeline()}
 
     return {
         k:

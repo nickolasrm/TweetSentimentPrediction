@@ -46,7 +46,7 @@ This project automatically downloads the required datasets before any run.
 
 ## Experiments
 
-### Naive Bayes (Multinomial)
+### <a id='nbm'>Naive Bayes (Multinomial)</a>
 
 ![Naive Bayes pipeline representation](/screenshots/naive-bayes.jpg)
 
@@ -66,6 +66,17 @@ This project automatically downloads the required datasets before any run.
 
 1. Classify the train data
 2. Make a classification report
+
+### Naive Bayes Bernoulli
+
+The other steps are the same as [Naive Bayes](#nbm)
+
+#### Training
+
+1. --
+2. Fit HashingVectorizer removing stop words to get all words by frequency
+3. Fit the words by occurence in a BernoulliNB
+4. Wraps it up in a Pipeline
 
 ## Usage
 

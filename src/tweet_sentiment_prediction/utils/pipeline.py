@@ -9,7 +9,7 @@ import pandas as pd
 def custom_pipeline(
     func: Callable,
     model: str,
-    filepath: str = str(Path('data') / '05_model_input' / 'x_custom')
+    filepath: str = str(Path('data') / '05_model_input' / 'x_custom.csv')
 ) -> Pipeline:
     """Generates a pipeline with a node only if x_custom file exists
 
