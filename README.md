@@ -22,93 +22,72 @@ This is the sentiment140 dataset. It contains 1,600,000 tweets extracted using t
 
 #### Links
 
-- [Kaggle](https://www.kaggle.com/datasets/kazanova/sentiment140)
+- [Sentiment140](http://help.sentiment140.com/)
 
-### 370k English words corpus
+## Download
 
-A words tag DataSet
+This project automatically downloads the required datasets before any run.
 
-#### Columns
+![Download pipeline representation](/screenshots/download.jpg)
 
-- word: string containing a word
-- pos_tag: string flags for each word category
+> Note: This only happens once. After it, the project will use caches
 
-| pos_tag    | Meaning                                              |
-|-----------------|------------------------------------------------------|
-| CC              | coordinating conjunction                             |
-| CD              | cardinal digit                                       |
-| DT              | determiner                                           |
-| EX              | existential there                                    |
-| FW              | foreign word                                         |
-| IN              | preposition/subordinating conjunction                |
-| JJ              | adjective (large)                                    |
-| JJR             | adjective, comparative (larger)                      |
-| JJS             | adjective, superlative (largest)                     |
-| LS              | list item marker                                     |
-| MD              | modal (could, will)                                  |
-| NN              | noun, singular                                       |
-| NNS             | noun plural                                          |
-| NNP             | proper noun, singular                                |
-| NNPS            | proper noun, plural                                  |
-| PDT             | predeterminer                                        |
-| POS             | possessive ending (parent\ 's)                       |
-| PRP             | personal pronoun (hers, herself, him,himself)        |
-| PRP dollar-sign | possessive pronoun (her, his, mine, my, our )        |
-| RB              | adverb (occasionally, swiftly)                       |
-| RBR             | adverb, comparative (greater)                        |
-| RBS             | adverb, superlative (biggest)                        |
-| RP              | particle (about)                                     |
-| SYM             | symbol                                               |
-| TO              | infinite marker (to)                                 |
-| UH              | interjection (goodbye)                               |
-| VB              | verb (ask)                                           |
-| VBG             | verb gerund (judging)                                |
-| VBD             | verb past tense (pleaded)                            |
-| VBN             | verb past participle (reunified)                     |
-| VBP             | verb, present tense not 3rd person singular(wrap)    |
-| VBZ             | verb, present tense with 3rd person singular (bases) |
-| WDT             | wh-determiner (that, what)                           |
-| WP              | wh- pronoun (who)                                    |
-| WP dollar-sign  | possessive wh-pronoun                                |
-| WRB             | wh- adverb (how)                                     |
+## Preprocess
 
-#### Links
+![Data engineering pipeline representation](/screenshots/data_engineering.jpg)
 
-- [Kaggle](https://www.kaggle.com/datasets/ruchi798/part-of-speech-tagging)
+### Sentiment140
+
+1. Take all examples on `Sentiment140` and balance the number of target classes in order to avoid predicting the most recurrent class
+2. Lowercase texts
+3. Set header
+4. Remove mentions (words starting with @)
+5. Remove # (the symbol only)
 
 ## Experiments
 
-### Neural Network and dummies
+### Naive Bayes (Multinomial)
 
-#### Preprocess
+![Naive Bayes pipeline representation](/screenshots/naive-bayes.jpg)
 
-1. Take all examples and balance the number of target classes in order to avoid predicting the most recurrent class
-2. Lowercase texts
-3. Split train and test in a 80:20 proportion
+#### Feature Selection
 
-#### Feature Engineering
-
-1. Convert text to dummies
-2. Remove all mention words (starts with @)
-3. Remove connectives
-4. Apply PCA to reduce dimensionality
+1. Select text
+2. Select target
 
 #### Training
 
-1. Create a simple nn
-2. Perform a GridSearch over the train data to find the optimal topology
-3. Save the best network
+1. Split features and target into test and train data
+2. Fit CountVectorizer removing stop words to get all words by frequency
+3. Fit the words by frequency in a MultinomialNB
+4. Wraps it up in a Pipeline
 
 #### Testing
 
 1. Classify the train data
+2. Make a classification report
+
+## Usage
+
+To test this project by your own, do the following steps:
+
+1. Clone the repo
+2. Go to the project folder and run `pip install -r src/requirements.txt`
+3. Optional: install `requirements.dev.txt` and `requirements.test.txt` in order to edit the project
+4. Run `kedro run --pipeline <EXPERIMENT>` changing `<EXPERIMENT>` by the name of one of the folders under `src/tweets_sentiment_prediction/pipelines`
+
+### Custom testing
+
+1. Create a file `x_custom.csv` under `data/05_model_input` containing a `text` column and the tweets on its content
+2. Run any pipeline with the `custom` tag by using the regular `kedro run --pipeline <PIPE> --tag custom`
 
 ## Tools used
 
 - Kedro: pipeline management framework
-- Keras: deep learning framework
+- Sklearn: ml and statistic algorithms lib
 - Pandas: dataset handling lib
-- Jupyter: Experiment testing
+- Jupyter: Experiment/hypothesis testing tool
+- Mlflow: Experiment tracking tool
 
 ## Credits
 
@@ -116,4 +95,5 @@ Made with love by nickolasrm ❤️
 
 ## References
 
-
+- [StatQuest with Josh Starmer - Naive Bayes, Clearly Explained!!!](https://www.youtube.com/watch?v=O2L2Uv9pdDA&ab_channel=StatQuestwithJoshStarmer)
+- [Hardikkumar Dhaduk - Performing Sentiment Analysis With Naive Bayes Classifier!](https://www.analyticsvidhya.com/blog/2021/07/performing-sentiment-analysis-with-naive-bayes-classifier/)
